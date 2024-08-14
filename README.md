@@ -5,6 +5,9 @@
 
 The Notes App is an Android application built using modern Android development tools and libraries such as Jetpack Compose, Koin, Room, and Clean Architecture. The app allows users to add, update, delete, search, and sort notes based on title, creation date, or modification date, with options for ascending and descending order.
 
+## Screenshots
+
+[](attachments/all_notes.png) [](attachments/create_note.png) [](attachments/search_note.png) [](attachments/notes_sort.png)
 
 ### Features
 
