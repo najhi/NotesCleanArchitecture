@@ -9,6 +9,10 @@ The Notes App is an Android application built using modern Android development t
 
 <img src="attachments/all_notes.png" width="200" />  <img src="attachments/create_note.png" width="200" />  <img src="attachments/search_note.png" width="200" />  <img src="attachments/notes_sort.png" width="200" />
 
+### Demo
+
+https://github.com/user-attachments/assets/3961a54f-0fd8-40aa-8100-645c70da09cb
+
 ### Features
 
 	• Add Note: Create a new note with a title, content, and optional tags.
