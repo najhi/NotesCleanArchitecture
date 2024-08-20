@@ -203,37 +203,40 @@ fun NoteApp(noteViewModel: NoteViewModel, onCreateNotePressed: () -> Unit, onNot
                         }
                     }
                 }
-                Column {
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(14.dp),
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                    ) {
-                        Text(text = "${notes.size} Notes")
-                        Row(horizontalArrangement = Arrangement.spacedBy(10.dp), verticalAlignment = Alignment.CenterVertically) {
-                            val sortItems = noteViewModel.sortItems
-                            val orderItems = noteViewModel.orderItems
-                            val selected = sortItems.indexOf(noteViewModel.selectedSortBy.value)
-                            Dropdown(items = sortItems, selected = selected) { index ->
-                                noteViewModel.updateSortBy(sortItems[index])
-                            }
-                            Text(text = "〡", color = Color.Gray)
+                if (!isInSearchMode)
+                {
+                    Column {
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(14.dp),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                        ) {
+                            Text(text = "${notes.size} Notes")
+                            Row(horizontalArrangement = Arrangement.spacedBy(10.dp), verticalAlignment = Alignment.CenterVertically) {
+                                val sortItems = noteViewModel.sortItems
+                                val orderItems = noteViewModel.orderItems
+                                val selected = sortItems.indexOf(noteViewModel.selectedSortBy.value)
+                                Dropdown(items = sortItems, selected = selected) { index ->
+                                    noteViewModel.updateSortBy(sortItems[index])
+                                }
+                                Text(text = "〡", color = Color.Gray)
 
-                            val orderIcon = if(isOrderDescending) Icons.Filled.KeyboardArrowDown else Icons.Filled.KeyboardArrowUp
-                            Icon(
-                                orderIcon,
-                                contentDescription = "Order",
-                                tint = Color.Gray,
-                                modifier = Modifier
-                                    .clickable {
-                                        isOrderDescending = !isOrderDescending
-                                        noteViewModel.updateOrderBy(orderItems.find { it != noteViewModel.selectedOrderBy.value }!!)
-                                    })
+                                val orderIcon = if(isOrderDescending) Icons.Filled.KeyboardArrowDown else Icons.Filled.KeyboardArrowUp
+                                Icon(
+                                    orderIcon,
+                                    contentDescription = "Order",
+                                    tint = Color.Gray,
+                                    modifier = Modifier
+                                        .clickable {
+                                            isOrderDescending = !isOrderDescending
+                                            noteViewModel.updateOrderBy(orderItems.find { it != noteViewModel.selectedOrderBy.value }!!)
+                                        })
+                            }
                         }
-                    }
-                    NoteList(notes = notes, appState = appState) {
-                        onNoteSelected(it)
+                        NoteList(notes = notes, appState = appState) {
+                            onNoteSelected(it)
+                        }
                     }
                 }
             }

@@ -1,5 +1,6 @@
 package com.najhi.notes.domain.model
 
+import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.mutableStateOf
 import androidx.room.Entity
 import androidx.room.Ignore
@@ -16,6 +17,7 @@ import kotlinx.serialization.Transient
 
 @Entity(tableName = "notes")
 @Serializable
+@Immutable
 data class Note(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     val title: String,

@@ -33,7 +33,7 @@ fun NoteList(
         verticalArrangement = Arrangement.spacedBy(20.dp),
         horizontalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        items(notes) { note ->
+        items(notes, key = { it.id }) { note ->
             NoteItem(note = note, appState) {
                 onNoteSelected(it)
             }
