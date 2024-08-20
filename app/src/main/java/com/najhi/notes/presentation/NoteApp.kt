@@ -3,10 +3,13 @@ package com.najhi.notes.presentation
 import android.annotation.SuppressLint
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -181,7 +184,7 @@ fun NoteApp(noteViewModel: NoteViewModel, onCreateNotePressed: () -> Unit, onNot
         snackbarHost = { SnackbarHost(hostState = snackBarHostState) },
         content = { innerPadding ->
 
-            Column(
+            Box(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(innerPadding)
@@ -203,17 +206,21 @@ fun NoteApp(noteViewModel: NoteViewModel, onCreateNotePressed: () -> Unit, onNot
                         }
                     }
                 }
-                if (!isInSearchMode)
-                {
+                AnimatedVisibility(
+                    visible = !isInSearchMode,
+                    exit = slideOutVertically { it } + fadeOut(),
+                    enter = slideInVertically { it } + fadeIn()
+                ) {
                     Column {
                         Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(14.dp),
+                            modifier = Modifier.fillMaxWidth().padding(14.dp),
                             horizontalArrangement = Arrangement.SpaceBetween,
                         ) {
                             Text(text = "${notes.size} Notes")
-                            Row(horizontalArrangement = Arrangement.spacedBy(10.dp), verticalAlignment = Alignment.CenterVertically) {
+                            Row(
+                                horizontalArrangement = Arrangement.spacedBy(10.dp),
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
                                 val sortItems = noteViewModel.sortItems
                                 val orderItems = noteViewModel.orderItems
                                 val selected = sortItems.indexOf(noteViewModel.selectedSortBy.value)
@@ -222,13 +229,12 @@ fun NoteApp(noteViewModel: NoteViewModel, onCreateNotePressed: () -> Unit, onNot
                                 }
                                 Text(text = "〡", color = Color.Gray)
 
-                                val orderIcon = if(isOrderDescending) Icons.Filled.KeyboardArrowDown else Icons.Filled.KeyboardArrowUp
-                                Icon(
-                                    orderIcon,
+                                val orderIcon =
+                                    if (isOrderDescending) Icons.Filled.KeyboardArrowDown else Icons.Filled.KeyboardArrowUp
+                                Icon(orderIcon,
                                     contentDescription = "Order",
                                     tint = Color.Gray,
-                                    modifier = Modifier
-                                        .clickable {
+                                    modifier = Modifier.clickable {
                                             isOrderDescending = !isOrderDescending
                                             noteViewModel.updateOrderBy(orderItems.find { it != noteViewModel.selectedOrderBy.value }!!)
                                         })
