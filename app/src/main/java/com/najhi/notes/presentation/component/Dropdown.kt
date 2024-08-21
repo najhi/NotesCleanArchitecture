@@ -9,6 +9,7 @@ import androidx.compose.material.icons.filled.List
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -43,9 +44,9 @@ fun Dropdown(
     Box(modifier = modifier) {
         Row(modifier = Modifier.clickable(onClick = { expanded = true }), horizontalArrangement = Arrangement.spacedBy(4.dp), verticalAlignment = Alignment.CenterVertically) {
             Icon(
-                Icons.Filled.List, contentDescription = "Order", tint = Color.Gray
+                Icons.Filled.List, contentDescription = "Order", tint = MaterialTheme.colorScheme.onSurfaceVariant
             )
-            Text(items[selectedIndex], color = Color.Gray)
+            Text(items[selectedIndex], color = MaterialTheme.colorScheme.onSurfaceVariant)
         }
         DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
             items.forEachIndexed { index, s ->
@@ -54,7 +55,7 @@ fun Dropdown(
                     expanded = false
                     onSelectionChanged(selectedIndex)
                 }, text = {
-                    Text(text = s, color = Color.Gray)
+                    Text(text = s, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 })
             }
         }
